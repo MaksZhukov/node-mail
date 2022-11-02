@@ -42,13 +42,18 @@ app.post("/email", upload.single("file"), async (req, res) => {
         : [],
     });
     if (req.file) {
-      fs.unlink(req.file.path);
+      fs.unlink(req.file.path, () => {});
     }
     res.send("ok");
   } catch (err) {
     res.status(500);
   }
 });
+
+app.get('/', (req,res)=> {
+    res.send('ok'); 
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
